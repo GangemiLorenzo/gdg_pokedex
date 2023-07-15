@@ -6,8 +6,8 @@ class FetchPokedexEvent implements PokedexEvent {
   FetchPokedexEvent();
 }
 
-class FetchOtherPokedexEvent implements PokedexEvent {
-  FetchOtherPokedexEvent();
+class FetchMorePokedexEvent implements PokedexEvent {
+  FetchMorePokedexEvent();
 }
 
 class CatchPokemonEvent implements PokedexEvent {

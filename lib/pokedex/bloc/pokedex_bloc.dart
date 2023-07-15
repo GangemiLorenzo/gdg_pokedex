@@ -5,6 +5,8 @@ import 'package:gdg_pokedex/pokedex/repo/pokedex_repo.dart';
 part 'pokedex_event.dart';
 part 'pokedex_state.dart';
 
+const limit = 20;
+
 class PokedexBloc extends Bloc<PokedexEvent, PokedexState> {
   final PokedexRepo pokedexRepo;
 
@@ -14,8 +16,8 @@ class PokedexBloc extends Bloc<PokedexEvent, PokedexState> {
     on<PokedexEvent>((event, emit) async => switch (event) {
           (FetchPokedexEvent fetchPokedexEvent) =>
             await _fetchPokedex(fetchPokedexEvent, emit),
-          (FetchOtherPokedexEvent fetchOtherPokedexEvent) =>
-            await _fetchOtherPokedex(fetchOtherPokedexEvent, emit),
+          (FetchMorePokedexEvent fetchMorePokedexEvent) =>
+            await _fetchMorePokedex(fetchMorePokedexEvent, emit),
           (CatchPokemonEvent catchPokemonEvent) =>
             _catchPokemon(catchPokemonEvent, emit),
           _ => {},
@@ -28,7 +30,7 @@ class PokedexBloc extends Bloc<PokedexEvent, PokedexState> {
       emit(LoadingState());
 
       final pokedex = await pokedexRepo.fetch(
-        limit: 20,
+        limit: limit,
       );
       //await Future.delayed(const Duration(seconds: 3));
       //throw Exception('Prepare for trouble! And make it double!');
@@ -45,8 +47,8 @@ class PokedexBloc extends Bloc<PokedexEvent, PokedexState> {
     }
   }
 
-  Future<void> _fetchOtherPokedex(
-      FetchOtherPokedexEvent event, Emitter<PokedexState> emit) async {
+  Future<void> _fetchMorePokedex(
+      FetchMorePokedexEvent event, Emitter<PokedexState> emit) async {
     final currentState = state as LoadedState;
     try {
       final offset = currentState.pokemonList.length;
@@ -56,7 +58,7 @@ class PokedexBloc extends Bloc<PokedexEvent, PokedexState> {
       );
 
       final pokedex = await pokedexRepo.fetch(
-        limit: 20,
+        limit: limit,
         offset: offset,
       );
       //await Future.delayed(const Duration(seconds: 3));

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gdg_pokedex/pokedex/bloc/pokedex_bloc.dart';
 
-class PokedexPageError extends StatelessWidget {
+class PokedexError extends StatelessWidget {
   final ErrorState state;
 
-  const PokedexPageError({
+  const PokedexError({
     super.key,
     required this.state,
   });

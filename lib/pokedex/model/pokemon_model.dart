@@ -53,46 +53,46 @@ class PokemonModel {
       type: type,
     );
   }
-
-  // Getter for color based on Pokemon type
+// Getter for color based on Pokemon type
   Color get color {
     switch (type) {
       case PokemonType.normal:
-        return Colors.brown[300]!;
+        return Colors.brown[200]!;
       case PokemonType.fire:
-        return Colors.red;
+        return Colors.red[200]!;
       case PokemonType.water:
-        return Colors.blue;
+        return Colors.blue[200]!;
       case PokemonType.electric:
-        return Colors.yellow;
+        return Colors.yellow[200]!;
       case PokemonType.grass:
-        return Colors.green;
+        return Colors.green[200]!;
       case PokemonType.ice:
-        return Colors.cyan[200]!;
+        return Colors.cyan[100]!;
       case PokemonType.fighting:
-        return Colors.grey;
+        return Colors.grey[200]!;
       case PokemonType.poison:
-        return Colors.purple;
+        return Colors.purple[200]!;
       case PokemonType.ground:
-        return Colors.brown;
+        return Colors.brown[200]!;
       case PokemonType.flying:
-        return Colors.blue[300]!;
+        return Colors.blue[200]!;
       case PokemonType.psychic:
-        return Colors.pink[200]!;
+        return Colors.pink[100]!;
       case PokemonType.bug:
-        return Colors.lightGreen;
+        return Colors.lightGreen[200]!;
       case PokemonType.rock:
-        return Colors.grey[700]!;
+        return Colors.grey[400]!;
       case PokemonType.ghost:
-        return Colors.deepPurple;
+        return Colors.deepPurple[200]!;
       case PokemonType.dragon:
-        return Colors.indigo;
+        return Colors.indigo[200]!;
       case PokemonType.dark:
-        return Colors.black;
+        return Colors
+            .black54; // There's no lighter shade of black, so used semi-transparent black
       case PokemonType.steel:
-        return Colors.grey[500]!;
+        return Colors.grey[300]!;
       case PokemonType.fairy:
-        return Colors.pink;
+        return Colors.pink[200]!;
       default:
         return Colors.white;
     }

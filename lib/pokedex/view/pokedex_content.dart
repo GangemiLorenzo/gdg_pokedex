@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gdg_pokedex/pokedex/bloc/pokedex_bloc.dart';
 import 'package:gdg_pokedex/pokedex/model/pokemon_model.dart';
 
-class PokedexPageContent extends StatelessWidget {
+class PokedexContent extends StatelessWidget {
   final LoadedState state;
 
-  const PokedexPageContent({
+  const PokedexContent({
     super.key,
     required this.state,
   });
@@ -19,7 +19,7 @@ class PokedexPageContent extends StatelessWidget {
         itemCount: state.pokemonList.length + (state.isLoading ? 1 : 0),
         itemBuilder: (BuildContext context, int index) {
           if (index >= state.pokemonList.length - 1 && !state.isLoading) {
-            BlocProvider.of<PokedexBloc>(context).add(FetchOtherPokedexEvent());
+            BlocProvider.of<PokedexBloc>(context).add(FetchMorePokedexEvent());
           }
           if (index == state.pokemonList.length) {
             return const Row(
@@ -56,7 +56,7 @@ class PokemonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.all(8.0),
-      color: Theme.of(context).colorScheme.primaryContainer,
+      color: pokemon.color,
       elevation: isCatched ? 4 : 0,
       child: InkWell(
         onTap: () => {
@@ -66,6 +66,7 @@ class PokemonWidget extends StatelessWidget {
             ),
           ),
         },
+        borderRadius: BorderRadius.circular(8.0),
         child: Row(
           children: [
             const SizedBox(width: 10.0),
@@ -73,6 +74,7 @@ class PokemonWidget extends StatelessWidget {
               pokemon.spriteUrl,
               width: 80,
               height: 80,
+              scale: 1,
             ),
             const SizedBox(width: 10.0),
             Text(
@@ -84,9 +86,8 @@ class PokemonWidget extends StatelessWidget {
             ),
             const SizedBox(width: 10.0),
             if (isCatched)
-              Icon(
+              const Icon(
                 Icons.check,
-                color: pokemon.color,
               ),
           ],
         ),
