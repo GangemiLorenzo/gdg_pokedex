@@ -28,7 +28,7 @@ class PokemonModel {
   final String spriteUrl;
   final PokemonType type;
 
-  PokemonModel({
+  PokemonModel._({
     required this.index,
     required this.name,
     required this.spriteUrl,
@@ -46,14 +46,15 @@ class PokemonModel {
       type = PokemonType.normal;
     }
 
-    return PokemonModel(
+    return PokemonModel._(
       index: json['id'],
       name: json['name'],
       spriteUrl: json['sprites']['front_default'],
       type: type,
     );
   }
-// Getter for color based on Pokemon type
+
+  // Getter for color based on Pokemon type
   Color get color {
     switch (type) {
       case PokemonType.normal:
@@ -87,8 +88,7 @@ class PokemonModel {
       case PokemonType.dragon:
         return Colors.indigo[200]!;
       case PokemonType.dark:
-        return Colors
-            .black54; // There's no lighter shade of black, so used semi-transparent black
+        return Colors.black54;
       case PokemonType.steel:
         return Colors.grey[300]!;
       case PokemonType.fairy:

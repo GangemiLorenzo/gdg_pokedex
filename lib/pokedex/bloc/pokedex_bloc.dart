@@ -12,7 +12,10 @@ class PokedexBloc extends Bloc<PokedexEvent, PokedexState> {
 
   PokedexBloc({
     required this.pokedexRepo,
-  }) : super(LoadingState()) {
+  }) : super(
+          LoadingState(), // Initial State
+        ) {
+    // Routing of Events to bloc functions
     on<PokedexEvent>((event, emit) async => switch (event) {
           (FetchPokedexEvent fetchPokedexEvent) =>
             await _fetchPokedex(fetchPokedexEvent, emit),
@@ -24,8 +27,17 @@ class PokedexBloc extends Bloc<PokedexEvent, PokedexState> {
         });
   }
 
+  /// Contains the logic to handle the [FetchPokedexEvent].
+  ///
+  /// Emits [LoadingState].
+  /// Request pokedex data from [pokedexRepo].
+  /// Emits [LoadedState] with data.
+  /// If something goes wrong, emits [ErrorState].
+  ///
   Future<void> _fetchPokedex(
-      FetchPokedexEvent event, Emitter<PokedexState> emit) async {
+    FetchPokedexEvent event,
+    Emitter<PokedexState> emit,
+  ) async {
     try {
       emit(LoadingState());
 
@@ -47,8 +59,17 @@ class PokedexBloc extends Bloc<PokedexEvent, PokedexState> {
     }
   }
 
+  /// Contains the logic to handle the [FetchMorePokedexEvent].
+  ///
+  /// Emits [LoadedState] with [isLoading] property to true.
+  /// Request more pokedex data from [pokedexRepo].
+  /// Emits [LoadedState] with new data and isLoading to false value.
+  /// If something goes wrong, emits [ErrorState].
+  ///
   Future<void> _fetchMorePokedex(
-      FetchMorePokedexEvent event, Emitter<PokedexState> emit) async {
+    FetchMorePokedexEvent event,
+    Emitter<PokedexState> emit,
+  ) async {
     final currentState = state as LoadedState;
     try {
       final offset = currentState.pokemonList.length;
@@ -80,7 +101,18 @@ class PokedexBloc extends Bloc<PokedexEvent, PokedexState> {
     }
   }
 
-  void _catchPokemon(CatchPokemonEvent event, Emitter<PokedexState> emit) {
+  /// Contains the logic to handle the [CatchPokemonEvent].
+  ///
+  /// If the entry is not present in the [catchedPokemonList] list
+  /// Then it adds the entry
+  /// Otherwise it removes the entry
+  /// Finally emits [LoadedState] with updated list.
+  /// If something goes wrong, emits [ErrorState].
+  ///
+  void _catchPokemon(
+    CatchPokemonEvent event,
+    Emitter<PokedexState> emit,
+  ) {
     if (state is! LoadedState) {
       return;
     }

@@ -10,6 +10,10 @@ class PokedexRepo {
 
   final RestClient restClient;
 
+  /// This method is used to fetch list of pokemon from pokeapi.
+  /// The method performs a call to api/v2/pokemon by specifing limit and offset.
+  /// It then request data for each pokemon in parallel way.
+  /// It finally returns a list of PokemonModel.
   Future<List<PokemonModel>> fetch({
     int? limit,
     int? offset,
