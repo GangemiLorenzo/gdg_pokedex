@@ -28,15 +28,24 @@ class PokedexPage extends StatelessWidget {
           title: const Text('Pokedex'),
         ),
         body: BlocBuilder<PokedexBloc, PokedexState>(
-          builder: (context, state) => switch (state) {
-            (LoadingState _) => const PokedexLoading(),
-            (ErrorState errorState) => PokedexError(
-                state: errorState,
-              ),
-            (LoadedState loadedState) => PokedexContent(
-                state: loadedState,
-              ),
-            _ => Container(),
+          builder: (context, state) {
+            if (state is LoadingState) {
+              return const PokedexLoading();
+            }
+
+            if (state is ErrorState) {
+              return PokedexError(
+                state: state,
+              );
+            }
+
+            if (state is LoadedState) {
+              return PokedexContent(
+                state: state,
+              );
+            }
+
+            return Container();
           },
         ),
       ),

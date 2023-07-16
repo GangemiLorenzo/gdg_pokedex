@@ -22,9 +22,9 @@ class PokedexContent extends StatelessWidget {
             BlocProvider.of<PokedexBloc>(context).add(FetchMorePokedexEvent());
           }
           if (index == state.pokemonList.length) {
-            return const Row(
+            return Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+              children: const [
                 CircularProgressIndicator(),
               ],
             );

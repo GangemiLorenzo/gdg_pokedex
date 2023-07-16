@@ -16,15 +16,11 @@ class PokedexBloc extends Bloc<PokedexEvent, PokedexState> {
           LoadingState(), // Initial State
         ) {
     // Routing of Events to bloc functions
-    on<PokedexEvent>((event, emit) async => switch (event) {
-          (FetchPokedexEvent fetchPokedexEvent) =>
-            await _fetchPokedex(fetchPokedexEvent, emit),
-          (FetchMorePokedexEvent fetchMorePokedexEvent) =>
-            await _fetchMorePokedex(fetchMorePokedexEvent, emit),
-          (CatchPokemonEvent catchPokemonEvent) =>
-            _catchPokemon(catchPokemonEvent, emit),
-          _ => {},
-        });
+    on<FetchPokedexEvent>(
+        (event, emit) async => await _fetchPokedex(event, emit));
+    on<FetchMorePokedexEvent>(
+        (event, emit) async => await _fetchMorePokedex(event, emit));
+    on<CatchPokemonEvent>((event, emit) => _catchPokemon(event, emit));
   }
 
   /// Contains the logic to handle the [FetchPokedexEvent].
